@@ -6,7 +6,15 @@ __pycache__/
 # Pytest cache
 .pytest_cache/
 
+# Virtual environments
+.venv/
+venv/
+
 # Environment variables
 .env
+
 # Local SQLite database
 storage/configurations.db
+
+# macOS files
+.DS_Store
