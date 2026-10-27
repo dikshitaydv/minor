@@ -1,0 +1,32 @@
+[
+  {
+    "id": "general_web_app",
+    "name": "General web application",
+    "description": "A general web application that may need structured records and flexible querying.",
+    "mandatory_requirements": []
+  },
+  {
+    "id": "document_app",
+    "name": "Document-oriented application",
+    "description": "An application that stores and retrieves document-shaped records.",
+    "mandatory_requirements": [
+      "supports_documents"
+    ]
+  },
+  {
+    "id": "real_time_cache",
+    "name": "Real-time cache",
+    "description": "A service that needs an in-memory key-value cache.",
+    "mandatory_requirements": [
+      "supports_in_memory_cache"
+    ]
+  },
+  {
+    "id": "distributed_wide_column",
+    "name": "Distributed wide-column workload",
+    "description": "A workload designed around distributed wide-column storage.",
+    "mandatory_requirements": [
+      "supports_distributed_wide_column"
+    ]
+  }
+]

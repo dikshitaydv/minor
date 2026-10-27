@@ -1,0 +1,102 @@
+[
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "type": "relational",
+    "supports_sql": true,
+    "supports_documents": false,
+    "supports_in_memory_cache": false,
+    "supports_distributed_wide_column": false,
+    "scores": {
+      "cost": 4,
+      "scalability": 4,
+      "query_flexibility": 5,
+      "operational_simplicity": 3
+    },
+    "evidence_urls": [
+      "https://www.postgresql.org/docs/"
+    ],
+    "verified_on": null,
+    "notes": "Initial demonstration profile; verify scores and assumptions."
+  },
+  {
+    "id": "mysql",
+    "name": "MySQL",
+    "type": "relational",
+    "supports_sql": true,
+    "supports_documents": false,
+    "supports_in_memory_cache": false,
+    "supports_distributed_wide_column": false,
+    "scores": {
+      "cost": 4,
+      "scalability": 4,
+      "query_flexibility": 4,
+      "operational_simplicity": 4
+    },
+    "evidence_urls": [
+      "https://dev.mysql.com/doc/"
+    ],
+    "verified_on": null,
+    "notes": "Initial demonstration profile; verify scores and assumptions."
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB",
+    "type": "document",
+    "supports_sql": false,
+    "supports_documents": true,
+    "supports_in_memory_cache": false,
+    "supports_distributed_wide_column": false,
+    "scores": {
+      "cost": 4,
+      "scalability": 4,
+      "query_flexibility": 4,
+      "operational_simplicity": 4
+    },
+    "evidence_urls": [
+      "https://www.mongodb.com/docs/"
+    ],
+    "verified_on": null,
+    "notes": "Initial demonstration profile; verify scores and assumptions."
+  },
+  {
+    "id": "cassandra",
+    "name": "Apache Cassandra",
+    "type": "wide_column",
+    "supports_sql": false,
+    "supports_documents": false,
+    "supports_in_memory_cache": false,
+    "supports_distributed_wide_column": true,
+    "scores": {
+      "cost": 3,
+      "scalability": 5,
+      "query_flexibility": 2,
+      "operational_simplicity": 2
+    },
+    "evidence_urls": [
+      "https://cassandra.apache.org/doc/"
+    ],
+    "verified_on": null,
+    "notes": "Initial demonstration profile; verify scores and assumptions."
+  },
+  {
+    "id": "redis",
+    "name": "Redis",
+    "type": "key_value",
+    "supports_sql": false,
+    "supports_documents": false,
+    "supports_in_memory_cache": true,
+    "supports_distributed_wide_column": false,
+    "scores": {
+      "cost": 3,
+      "scalability": 4,
+      "query_flexibility": 2,
+      "operational_simplicity": 4
+    },
+    "evidence_urls": [
+      "https://redis.io/docs/latest/"
+    ],
+    "verified_on": null,
+    "notes": "Initial demonstration profile; verify scores and assumptions."
+  }
+]
