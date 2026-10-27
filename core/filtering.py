@@ -6,11 +6,12 @@ def filter_databases(databases, mandatory_requirements):
     excluded = []
 
     for database in databases:
+        capabilities = database.get("capabilities", database)
         failed = []
         unknown = []
 
         for requirement in mandatory_requirements:
-            value = database.get(requirement)
+            value = capabilities.get(requirement)
 
             if value is False:
                 failed.append(requirement)
@@ -24,14 +25,10 @@ def filter_databases(databases, mandatory_requirements):
             })
         else:
             candidate = database.copy()
-
-            if unknown:
-                candidate["_filter_status"] = "needs_verification"
-                candidate["_verification_requirements"] = unknown
-            else:
-                candidate["_filter_status"] = "eligible"
-                candidate["_verification_requirements"] = []
-
+            candidate["_filter_status"] = (
+                "needs_verification" if unknown else "eligible"
+            )
+            candidate["_verification_requirements"] = unknown
             eligible.append(candidate)
 
     return eligible, excluded

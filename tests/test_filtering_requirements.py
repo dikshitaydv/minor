@@ -59,3 +59,21 @@ def test_empty_requirements_keep_all():
     assert len(eligible) == 1
     assert eligible[0]["_filter_status"] == "eligible"
     assert excluded == []
+
+
+
+def test_nested_capabilities_are_supported():
+    databases = [
+        {
+            "name": "PostgreSQL",
+            "capabilities": {"supports_sql": True},
+        }
+    ]
+
+    eligible, excluded = filter_databases(
+        databases, ["supports_sql"]
+    )
+
+    assert len(eligible) == 1
+    assert eligible[0]["_filter_status"] == "eligible"
+    assert excluded == []
