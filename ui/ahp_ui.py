@@ -1,4 +1,7 @@
-
+from storage.database import (
+    get_configuration_history,
+    get_configuration,
+)
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -328,3 +331,96 @@ if result:
         f"Configuration: {result['config_name']} | "
         f"Version: {result['config_version']}"
     )
+
+# --------------------------------------------------
+# 6. Saved configurations and version history
+# --------------------------------------------------
+
+st.header("6. Saved Configurations & History")
+
+history_name = st.text_input(
+    "Configuration name to inspect",
+    value="my_database_selection",
+    key="history_config_name",
+)
+
+if st.button("Load configuration history"):
+    if not history_name.strip():
+        st.error("Enter a configuration name.")
+    else:
+        try:
+            history = get_configuration_history(history_name.strip())
+            st.session_state["loaded_history"] = history
+            st.session_state["loaded_history_name"] = history_name.strip()
+            st.session_state.pop("selected_saved_config", None)
+
+            if not history:
+                st.info("No saved versions found for this configuration.")
+
+        except (ValueError, TypeError) as error:
+            st.error(str(error))
+
+history = st.session_state.get("loaded_history", [])
+loaded_name = st.session_state.get("loaded_history_name")
+
+if history and loaded_name == history_name.strip():
+    st.subheader(f"Version history: {loaded_name}")
+
+    history_df = pd.DataFrame(history)
+    st.dataframe(
+        history_df,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    versions = [item["version"] for item in history]
+
+    selected_version = st.selectbox(
+        "Select a version to inspect",
+        options=versions,
+        index=len(versions) - 1,
+        format_func=lambda version: f"Version {version}",
+        key=f"history_version_{loaded_name}",
+    )
+
+    if st.button("View selected version"):
+        try:
+            saved = get_configuration(
+                loaded_name,
+                version=selected_version,
+            )
+
+            st.session_state["selected_saved_config"] = saved
+
+        except (ValueError, TypeError) as error:
+            st.error(str(error))
+
+saved = st.session_state.get("selected_saved_config")
+
+if (
+    saved
+    and saved["config_name"] == history_name.strip()
+    and saved["version"] in [
+        item["version"] for item in history
+    ]
+):
+    st.subheader(
+        f"Configuration details — Version {saved['version']}"
+    )
+
+    st.write(f"**Created at:** {saved['created_at']}")
+
+    st.markdown("**Saved criteria weights**")
+    weights_df = pd.DataFrame(
+        list(saved["criteria_weights"].items()),
+        columns=["Criterion", "Weight"],
+    )
+    st.dataframe(
+        weights_df,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.markdown("**Saved preferences**")
+    st.json(saved["preferences"])
+
