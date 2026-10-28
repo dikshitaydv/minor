@@ -1,6 +1,7 @@
 
 import json
 from pathlib import Path
+from core.application_scoring import apply_application_scores
 
 import numpy as np
 import pandas as pd
@@ -39,6 +40,10 @@ application_name = st.selectbox(
 )
 application = next(
     item for item in applications if item["name"] == application_name
+)
+databases = apply_application_scores(
+    databases,
+    application["id"]
 )
 
 st.write(application["description"])
@@ -145,18 +150,14 @@ if not eligible:
     st.stop()
 
 
-
-# Load the ten predefined criteria for the selected application.
+# Load the six predefined criteria for the selected application.
 default_criteria = application.get("default_criteria", [])
 
-st.subheader("Customise evaluation criteria")
+st.subheader("Active evaluation criteria")
 st.caption(
-    "Ten predefined criteria are available for this application. "
-    "You can deselect criteria, but cannot add new ones. "
-    "Only criteria with known scores for every eligible database "
-    "can be used for ranking."
+    "Exactly six criteria are configured for this application. "
+    "Criteria are predefined for the selected application."
 )
-
 criteria_labels = {
     "cost": "Cost",
     "scalability": "Scalability",
@@ -185,72 +186,47 @@ criteria_labels = {
     "fault_tolerance": "Fault tolerance",
     "consistency_options": "Consistency options",
 }
-
-# Keep each application's custom selections separate.
+# Allow users to select or deselect the six predefined criteria.
 selection_key = f"criteria_selection_{application['id']}"
 
 if selection_key not in st.session_state:
     st.session_state[selection_key] = default_criteria.copy()
 
-selected_criteria = []
-columns = st.columns(2)
+criteria = []
 
-for index, criterion in enumerate(default_criteria):
-    with columns[index % 2]:
-        checked = st.checkbox(
-            criteria_labels.get(
-                criterion,
-                criterion.replace("_", " ").title(),
-            ),
-            value=criterion in st.session_state[selection_key],
-            key=f"{selection_key}_checkbox_{criterion}",
-        )
-        if checked:
-            selected_criteria.append(criterion)
+for criterion in default_criteria:
+    checked = st.checkbox(
+        criteria_labels.get(
+            criterion,
+            criterion.replace("_", " ").title()
+        ),
+        value=criterion in st.session_state[selection_key],
+        key=f"{selection_key}_{criterion}"
+    )
 
-st.session_state[selection_key] = selected_criteria
-criteria = selected_criteria
+    if checked:
+        criteria.append(criterion)
 
-
-# Identify criteria that have numeric scores for every eligible database.
-scored_criteria = [
+st.session_state[selection_key] = criteria
+# Show which criteria still have missing scores.
+unavailable_criteria = [
     criterion
-    for criterion in application.get("default_criteria", [])
-    if all(
-        isinstance(database.get("scores", {}).get(criterion), (int, float))
-        and not isinstance(database.get("scores", {}).get(criterion), bool)
+    for criterion in criteria
+    if any(
+        database.get("scores", {}).get(criterion) is None
         for database in eligible
     )
 ]
 
-# Show which criteria are currently unavailable.
-unavailable_criteria = [
-    criterion
-    for criterion in application.get("default_criteria", [])
-    if criterion not in scored_criteria
-]
-
 if unavailable_criteria:
     st.info(
-        "These predefined criteria cannot currently be used because "
-        "one or more eligible databases have unknown scores: "
+        "Some active criteria have unknown scores: "
         + ", ".join(
             criteria_labels.get(c, c.replace("_", " ").title())
             for c in unavailable_criteria
         )
+        + ". Unknown scores remain null in the scoring file."
     )
-
-# Keep only selected criteria with known numeric scores.
-criteria = [
-    criterion for criterion in criteria
-    if criterion in scored_criteria
-]
-
-if len(criteria) < 2:
-    st.warning(
-        "Select at least two criteria that have scores for every eligible database."
-    )
-    st.stop()
 
 st.caption(
     "Compare the importance of each pair of criteria. "
@@ -373,47 +349,81 @@ config_name = st.text_input(
 )
 
 if st.button("Rank eligible databases and save configuration"):
-    if not ahp_result or ahp_result["application_id"] != application["id"] \
-            or ahp_result["criteria"] != criteria:
+    if (
+        not ahp_result
+        or ahp_result["application_id"] != application["id"]
+        or ahp_result["criteria"] != criteria
+    ):
         st.error("Calculate AHP weights for this application first.")
+
     elif not ahp_result["consistent"]:
         st.error("Resolve AHP inconsistency before ranking.")
+
     elif not config_name.strip():
         st.error("Enter a configuration name.")
-    else:
-        try:
-            decision_matrix = [
-                [database["scores"][criterion] for criterion in criteria]
-                for database in eligible
-            ]
 
-            result = recommend_databases(
-                pairwise_matrix=ahp_result["matrix"],
-                decision_matrix=decision_matrix,
-                criteria_types=[
-                    criterion_types[criterion] for criterion in criteria
-                ],
-                alternatives=[
-                    database["name"] for database in eligible
-                ],
-                config_name=config_name.strip(),
-                preferences={
-                    "application_id": application["id"],
-                    "application_name": application["name"],
-                    "criteria": criteria,
-                    "criteria_types": criterion_types,
-                    "eligible_databases": [
+    else:
+        missing_scores = [
+            f"{database['name']}: "
+            + ", ".join(
+                criterion
+                for criterion in criteria
+                if database.get("scores", {}).get(criterion) is None
+            )
+            for database in eligible
+            if any(
+                database.get("scores", {}).get(criterion) is None
+                for criterion in criteria
+            )
+        ]
+
+        if missing_scores:
+            st.error(
+                "Cannot rank yet. Complete the missing scores in "
+                "data/application_scores.json:\n\n"
+                + "\n".join(missing_scores)
+            )
+
+        else:
+            try:
+                decision_matrix = [
+                    [
+                        database["scores"][criterion]
+                        for criterion in criteria
+                    ]
+                    for database in eligible
+                ]
+
+                result = recommend_databases(
+                    pairwise_matrix=ahp_result["matrix"],
+                    decision_matrix=decision_matrix,
+                    criteria_types=[
+                        criterion_types[criterion]
+                        for criterion in criteria
+                    ],
+                    alternatives=[
                         database["name"] for database in eligible
                     ],
-                },
-            )
+                    config_name=config_name.strip(),
+                    preferences={
+                        "application_id": application["id"],
+                        "application_name": application["name"],
+                        "criteria": criteria,
+                        "criteria_types": criterion_types,
+                        "eligible_databases": [
+                            database["name"] for database in eligible
+                        ],
+                    },
+                )
 
-            st.session_state["integrated_result"] = result
-            st.success(
-                f"Configuration saved as version {result['config_version']}."
-            )
-        except (ValueError, TypeError) as error:
-            st.error(str(error))
+                st.session_state["integrated_result"] = result
+                st.success(
+                    f"Configuration saved as version "
+                    f"{result['config_version']}."
+                )
+
+            except (ValueError, TypeError) as error:
+                st.error(str(error))
 
 result = st.session_state.get("integrated_result")
 

@@ -1,79 +1,62 @@
-
 [
   {
     "id": "general_web_app",
-    "name": "General web application",
-    "description": "A general web application that may need structured records and flexible querying.",
+    "name": "General Web Application",
+    "description": "A general-purpose web application requiring flexible queries, reliable transactions, security, and scalability.",
     "mandatory_requirements": [],
     "default_criteria": [
-      "cost",
+      "free_self_hosted_availability",
       "scalability",
+      "high_availability_support",
+      "security_features",
       "query_flexibility",
-      "operational_simplicity",
-      "transaction_support",
-      "availability",
-      "security",
-      "backup_recovery",
-      "concurrency_support",
-      "ecosystem_support"
+      "transaction_support"
     ]
   },
   {
     "id": "document_app",
-    "name": "Document-oriented application",
-    "description": "An application that stores and retrieves document-shaped records.",
+    "name": "Document-Oriented Application",
+    "description": "An application designed to store and retrieve document-based data with flexible schemas and efficient indexing.",
     "mandatory_requirements": [
       "supports_documents"
     ],
     "default_criteria": [
-      "cost",
+      "free_self_hosted_availability",
       "scalability",
-      "query_flexibility",
-      "operational_simplicity",
+      "security_features",
       "document_model_support",
       "schema_flexibility",
-      "indexing_support",
-      "aggregation_support",
-      "replication_support",
-      "backup_recovery"
+      "indexing_aggregation_support"
     ]
   },
   {
     "id": "real_time_cache",
-    "name": "Real-time cache",
-    "description": "A service that needs an in-memory key-value cache.",
+    "name": "Real-Time Cache",
+    "description": "An application requiring fast read and write operations, persistence options, and configurable eviction policies.",
     "mandatory_requirements": [
       "supports_in_memory_cache"
     ],
     "default_criteria": [
-      "cost",
+      "free_self_hosted_availability",
       "scalability",
-      "query_flexibility",
-      "operational_simplicity",
-      "read_latency",
-      "write_latency",
-      "throughput",
+      "security_features",
+      "read_write_operation_support",
       "persistence",
-      "eviction_policy_support",
-      "replication_failover"
+      "eviction_policy_support"
     ]
   },
   {
     "id": "distributed_wide_column",
-    "name": "Distributed wide-column workload",
-    "description": "A workload designed around distributed wide-column storage.",
+    "name": "Distributed Wide-Column Workload",
+    "description": "A distributed data workload requiring horizontal scalability, consistency options, high availability, and replication.",
     "mandatory_requirements": [
       "supports_distributed_wide_column"
     ],
     "default_criteria": [
-      "cost",
+      "free_self_hosted_availability",
       "scalability",
-      "query_flexibility",
-      "operational_simplicity",
-      "write_throughput",
-      "read_throughput",
-      "horizontal_scaling",
-      "fault_tolerance",
+      "high_availability_support",
+      "security_features",
       "consistency_options",
       "replication_support"
     ]
