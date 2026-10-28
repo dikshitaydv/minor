@@ -144,19 +144,112 @@ if not eligible:
     st.warning("No eligible databases are available to rank.")
     st.stop()
 
-criteria = list(eligible[0].get("scores", {}).keys())
 
-# Only use criteria that have a numeric score for every eligible database.
-criteria = [
-    criterion for criterion in criteria
+
+# Load the ten predefined criteria for the selected application.
+default_criteria = application.get("default_criteria", [])
+
+st.subheader("Customise evaluation criteria")
+st.caption(
+    "Ten predefined criteria are available for this application. "
+    "You can deselect criteria, but cannot add new ones. "
+    "Only criteria with known scores for every eligible database "
+    "can be used for ranking."
+)
+
+criteria_labels = {
+    "cost": "Cost",
+    "scalability": "Scalability",
+    "query_flexibility": "Query flexibility",
+    "operational_simplicity": "Operational simplicity",
+    "transaction_support": "Transaction support",
+    "availability": "Availability",
+    "security": "Security",
+    "backup_recovery": "Backup and recovery",
+    "concurrency_support": "Concurrency support",
+    "ecosystem_support": "Ecosystem support",
+    "document_model_support": "Document model support",
+    "schema_flexibility": "Schema flexibility",
+    "indexing_support": "Indexing support",
+    "aggregation_support": "Aggregation support",
+    "replication_support": "Replication support",
+    "read_latency": "Read latency",
+    "write_latency": "Write latency",
+    "throughput": "Throughput",
+    "persistence": "Persistence",
+    "eviction_policy_support": "Eviction policy support",
+    "replication_failover": "Replication and failover",
+    "write_throughput": "Write throughput",
+    "read_throughput": "Read throughput",
+    "horizontal_scaling": "Horizontal scaling",
+    "fault_tolerance": "Fault tolerance",
+    "consistency_options": "Consistency options",
+}
+
+# Keep each application's custom selections separate.
+selection_key = f"criteria_selection_{application['id']}"
+
+if selection_key not in st.session_state:
+    st.session_state[selection_key] = default_criteria.copy()
+
+selected_criteria = []
+columns = st.columns(2)
+
+for index, criterion in enumerate(default_criteria):
+    with columns[index % 2]:
+        checked = st.checkbox(
+            criteria_labels.get(
+                criterion,
+                criterion.replace("_", " ").title(),
+            ),
+            value=criterion in st.session_state[selection_key],
+            key=f"{selection_key}_checkbox_{criterion}",
+        )
+        if checked:
+            selected_criteria.append(criterion)
+
+st.session_state[selection_key] = selected_criteria
+criteria = selected_criteria
+
+
+# Identify criteria that have numeric scores for every eligible database.
+scored_criteria = [
+    criterion
+    for criterion in application.get("default_criteria", [])
     if all(
-        database.get("scores", {}).get(criterion) is not None
+        isinstance(database.get("scores", {}).get(criterion), (int, float))
+        and not isinstance(database.get("scores", {}).get(criterion), bool)
         for database in eligible
     )
 ]
 
-if not criteria:
-    st.error("No common scored criteria are available.")
+# Show which criteria are currently unavailable.
+unavailable_criteria = [
+    criterion
+    for criterion in application.get("default_criteria", [])
+    if criterion not in scored_criteria
+]
+
+if unavailable_criteria:
+    st.info(
+        "These predefined criteria cannot currently be used because "
+        "one or more eligible databases have unknown scores: "
+        + ", ".join(
+            criteria_labels.get(c, c.replace("_", " ").title())
+            for c in unavailable_criteria
+        )
+    )
+
+# Keep only selected criteria with known numeric scores.
+criteria = [
+    criterion for criterion in criteria
+    if criterion in scored_criteria
+]
+
+if len(criteria) < 2:
+    st.warning(
+        "Select at least two criteria that have scores for every eligible database."
+    )
     st.stop()
 
 st.caption(
@@ -171,12 +264,13 @@ scale_options = {
     "4": 4,
     "5 - Strong": 5,
     "6": 6,
-    "7 - Very strong": 7,
+    "7": 7,
     "8": 8,
-    "9 - Extreme": 9,
+    "9": 9,
 }
 
 pairwise_matrix = np.ones((len(criteria), len(criteria)), dtype=float)
+
 
 with st.form("integrated_ahp_form"):
     for i in range(len(criteria)):
