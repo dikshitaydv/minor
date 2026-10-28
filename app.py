@@ -71,6 +71,10 @@ if eligible:
         row = {
             "Database": database["name"],
             "Type": database["type"],
+            "Status": database.get("_filter_status", "eligible"),
+            "Needs verification": ", ".join(
+                database.get("_verification_requirements", [])
+            ) or "None",
         }
         row.update({
             key.replace("_", " ").title(): value
@@ -329,6 +333,14 @@ if result:
             f"Recommended database: {winner['database']} "
             f"(TOPSIS score: {winner['score']:.4f})"
         )
+
+        st.subheader("TOPSIS score comparison")
+
+        ranking_df = pd.DataFrame(result["rankings"])
+
+        if "score" in ranking_df.columns:
+            chart_data = ranking_df.set_index("database")[["score"]]
+            st.bar_chart(chart_data)
 
 
 # --------------------------------------------------
