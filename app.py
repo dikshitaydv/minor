@@ -43,22 +43,40 @@ application = next(
 
 st.write(application["description"])
 
-eligible, excluded = filter_databases(
+
+candidates, excluded = filter_databases(
     databases,
     application["mandatory_requirements"],
 )
 
-left, right = st.columns(2)
-left.metric("Eligible databases", len(eligible))
-right.metric("Excluded databases", len(excluded))
+verification_needed = [
+    db for db in candidates
+    if db.get("_filter_status") == "needs_verification"
+]
 
-if excluded:
-    with st.expander("View excluded databases and reasons"):
-        for item in excluded:
-            st.write(
-                f"**{item['database']['name']}** — "
-                + ", ".join(item["reasons"])
+eligible = [
+    db for db in candidates
+    if db.get("_filter_status") == "eligible"
+]
+
+
+
+left, middle, right = st.columns(3)
+left.metric("Verified eligible", len(eligible))
+middle.metric("Needs verification", len(verification_needed))
+right.metric("Excluded", len(excluded))
+
+if verification_needed:
+    with st.expander("View databases needing verification"):
+        for database in verification_needed:
+            requirements = database.get(
+                "_verification_requirements", []
             )
+            st.write(
+                f"**{database['name']}** — Verify: "
+                + ", ".join(requirements)
+            )
+
 
 # --------------------------------------------------
 # 2. Catalogue and explanations
