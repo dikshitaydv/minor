@@ -1,9 +1,22 @@
+
 [
   {
     "id": "general_web_app",
     "name": "General web application",
     "description": "A general web application that may need structured records and flexible querying.",
-    "mandatory_requirements": []
+    "mandatory_requirements": [],
+    "default_criteria": [
+      "cost",
+      "scalability",
+      "query_flexibility",
+      "operational_simplicity",
+      "transaction_support",
+      "availability",
+      "security",
+      "backup_recovery",
+      "concurrency_support",
+      "ecosystem_support"
+    ]
   },
   {
     "id": "document_app",
@@ -11,6 +24,18 @@
     "description": "An application that stores and retrieves document-shaped records.",
     "mandatory_requirements": [
       "supports_documents"
+    ],
+    "default_criteria": [
+      "cost",
+      "scalability",
+      "query_flexibility",
+      "operational_simplicity",
+      "document_model_support",
+      "schema_flexibility",
+      "indexing_support",
+      "aggregation_support",
+      "replication_support",
+      "backup_recovery"
     ]
   },
   {
@@ -19,6 +44,18 @@
     "description": "A service that needs an in-memory key-value cache.",
     "mandatory_requirements": [
       "supports_in_memory_cache"
+    ],
+    "default_criteria": [
+      "cost",
+      "scalability",
+      "query_flexibility",
+      "operational_simplicity",
+      "read_latency",
+      "write_latency",
+      "throughput",
+      "persistence",
+      "eviction_policy_support",
+      "replication_failover"
     ]
   },
   {
@@ -27,6 +64,18 @@
     "description": "A workload designed around distributed wide-column storage.",
     "mandatory_requirements": [
       "supports_distributed_wide_column"
+    ],
+    "default_criteria": [
+      "cost",
+      "scalability",
+      "query_flexibility",
+      "operational_simplicity",
+      "write_throughput",
+      "read_throughput",
+      "horizontal_scaling",
+      "fault_tolerance",
+      "consistency_options",
+      "replication_support"
     ]
   }
 ]
