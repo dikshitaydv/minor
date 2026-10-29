@@ -1,4 +1,6 @@
 from core.ranking_reliability import evaluate_ranking_reliability
+
+from core.topsis_explainability import explain_topsis
 import json
 from pathlib import Path
 from core.application_scoring import apply_application_scores
@@ -528,356 +530,300 @@ if st.button("Rank eligible databases and save configuration"):
 result = st.session_state.get("integrated_result")
 
 
+
+# --------------------------------------------------
+# 5. Ranking results, simple explanation and reliability
+# --------------------------------------------------
+
 if result:
     st.subheader("Database rankings")
 
+    st.dataframe(
+        pd.DataFrame(result["rankings"]),
+        use_container_width=True,
+        hide_index=True,
+    )
+
     if len(result["rankings"]) == 1:
-        only_database = result["rankings"][0]["database"]
         st.info(
-            f"Only eligible database: {only_database}. "
-            "No comparative ranking is possible because only one "
-            "database satisfies the mandatory requirements."
-        )
-        st.dataframe(
-            pd.DataFrame([{"database": only_database, "rank": 1}]),
-            use_container_width=True,
-            hide_index=True,
-        )
-    else:
-        st.dataframe(
-            pd.DataFrame(result["rankings"]),
-            use_container_width=True,
-            hide_index=True,
+            f"Only {result['rankings'][0]['database']} meets the "
+            "mandatory requirements. A comparison with other eligible "
+            "databases is not possible."
         )
 
+    elif len(result["rankings"]) > 1:
         winner = result["rankings"][0]
+
         st.success(
             f"Recommended database: {winner['database']} "
-            f"(TOPSIS score: {winner['score']:.4f})"
+            f"(score: {winner['score']:.4f})"
         )
 
-        st.subheader("TOPSIS score comparison")
-
-        ranking_df = pd.DataFrame(result["rankings"])
-
-        if "score" in ranking_df.columns:
-            chart_data = ranking_df.set_index("database")[["score"]]
-            st.bar_chart(chart_data)
-
-    
-        # --------------------------------------------------
-        # 4A. TOPSIS explainability
-        # --------------------------------------------------
-
-        st.subheader("Why did each database receive this rank?")
-
-        st.caption(
-            "This section explains the current TOPSIS ranking using "
-            "criterion performance, AHP weights, ideal-reference "
-            "distances, and weight sensitivity."
+        # Check that the current AHP weights match this application.
+        valid_ahp = (
+            ahp_result
+            and ahp_result["application_id"] == application["id"]
+            and ahp_result["criteria"] == criteria
         )
 
-        if len(eligible) < 2:
-            st.info(
-                "Explainability requires at least two eligible databases "
-                "for a meaningful comparison."
-            )
-
-        elif len(criteria) < 2:
-            st.info(
-                "Select at least two criteria to generate the explanation."
-            )
-
-        elif (
-            not ahp_result
-            or ahp_result["application_id"] != application["id"]
-            or ahp_result["criteria"] != criteria
-        ):
+        if not valid_ahp:
             st.warning(
-                "Recalculate AHP weights for the current criteria before "
-                "viewing explainability."
+                "Calculate AHP weights for the current application "
+                "and criteria to view the explanation."
             )
 
         else:
             try:
-                # Rebuild the decision matrix in the same order as eligible.
-                explanation_matrix = [
+                decision_matrix = [
                     [
                         database["scores"][criterion]
                         for criterion in criteria
                     ]
                     for database in eligible
+                ]
+
+                database_names = [
+                    database["name"] for database in eligible
                 ]
 
                 explanation_results = explain_topsis(
-                    decision_matrix=explanation_matrix,
+                    decision_matrix=decision_matrix,
                     weights=ahp_result["weights"],
                     criteria_types=[
                         criterion_types[criterion]
                         for criterion in criteria
                     ],
                     criteria_names=criteria,
-                    alternatives=[
-                        database["name"] for database in eligible
-                    ],
-                    sensitivity_percent=20,
+                    alternatives=database_names,
                 )
 
-                explanation_names = [
-                    item["database"] for item in explanation_results
-                ]
-
-                selected_explanation_name = st.selectbox(
-                    "Choose a database to explain",
-                    explanation_names,
-                    key="topsis_explanation_database",
-                )
-
-                details = next(
+                winner_explanation = next(
                     item for item in explanation_results
-                    if item["database"] == selected_explanation_name
+                    if item["database"] == winner["database"]
                 )
 
-                st.markdown(
-                    f"### {details['database']} — Rank {details['rank']}"
-                )
+                st.markdown("### Why is this database recommended?")
 
-                metric1, metric2, metric3 = st.columns(3)
+                strong = winner_explanation["strong_criteria"]
+                weak = winner_explanation["weak_criteria"]
 
-                metric1.metric(
-                    "TOPSIS score",
-                    f"{details['topsis_score']:.4f}",
-                )
-                metric2.metric(
-                    "Distance from ideal",
-                    f"{details['distance_from_ideal']:.4f}",
-                )
-                metric3.metric(
-                    "Distance from worst",
-                    f"{details['distance_from_worst']:.4f}",
-                )
+                if strong:
+                    st.write(
+                        "**What it does well:** "
+                        + ", ".join(
+                            item.replace("_", " ") for item in strong
+                        )
+                        + "."
+                    )
 
-                st.markdown("#### 1. Strengths and weaknesses")
-
-                strong_labels = [
-                    criterion.replace("_", " ").title()
-                    for criterion in details["strong_criteria"]
-                ]
-                weak_labels = [
-                    criterion.replace("_", " ").title()
-                    for criterion in details["weak_criteria"]
-                ]
-
-                col1, col2 = st.columns(2)
-
-                with col1:
-                    st.write("**Strong relative performance**")
-                    st.write(", ".join(strong_labels) or "None identified")
-
-                with col2:
-                    st.write("**Weak relative performance**")
-                    st.write(", ".join(weak_labels) or "None identified")
+                if weak:
+                    st.write(
+                        "**Where other databases may do better:** "
+                        + ", ".join(
+                            item.replace("_", " ") for item in weak
+                        )
+                        + "."
+                    )
 
                 st.caption(
-                    "Strengths and weaknesses are relative to the other "
-                    "eligible databases, not absolute quality ratings."
+                    "The recommendation is based on the selected criteria, "
+                    "their importance, and the scores of eligible databases."
                 )
 
-                st.markdown("#### 2. Criterion-level explanation")
+                # Detailed explanation is optional.
+                with st.expander("View detailed explanation"):
+                    st.write(
+                        "**TOPSIS score:** "
+                        f"{winner_explanation['topsis_score']:.4f}"
+                    )
 
-                criterion_rows = []
+                    st.write(
+                        "**Distance from the ideal database:** "
+                        f"{winner_explanation['distance_from_ideal']:.4f}"
+                    )
 
-                for criterion, item in details["criteria"].items():
-                    criterion_rows.append({
-                        "Criterion": criterion.replace("_", " ").title(),
-                        "Database score (1–5)": item["raw_score"],
-                        "AHP weight (%)": item["weight_percent"],
-                        "Weighted normalized value": item["weighted_value"],
-                        "Relative performance": item["performance_description"],
-                        "Distance from ideal share (%)":
-                            item["distance_from_ideal_share_percent"],
-                        "Distance from worst share (%)":
-                            item["distance_from_worst_share_percent"],
-                    })
+                    st.write(
+                        "**Distance from the worst reference:** "
+                        f"{winner_explanation['distance_from_worst']:.4f}"
+                    )
 
-                criterion_df = pd.DataFrame(criterion_rows)
+                    st.caption(
+                        "TOPSIS compares each database with ideal best and "
+                        "worst reference points. A higher TOPSIS score is "
+                        "better within the current comparison."
+                    )
 
-                st.dataframe(
-                    criterion_df,
-                    use_container_width=True,
-                    hide_index=True,
+                    st.markdown("**How each criterion was used**")
+
+                    detail_rows = []
+
+                    for criterion, detail in (
+                        winner_explanation["criteria"].items()
+                    ):
+                        detail_rows.append({
+                            "Criterion": criterion.replace(
+                                "_", " "
+                            ).title(),
+                            "Database score": detail["raw_score"],
+                            "Importance (%)": detail["weight_percent"],
+                            "Comparison": detail["performance_description"],
+                        })
+
+                    st.dataframe(
+                        pd.DataFrame(detail_rows),
+                        use_container_width=True,
+                        hide_index=True,
+                    )
+
+                    st.caption(
+                        "Importance (%) is the weight calculated by AHP. "
+                        "A higher weight means that criterion has more "
+                        "influence in the TOPSIS comparison."
+                    )
+
+                    st.markdown("**What if criterion importance changes?**")
+
+                    sensitivity_rows = []
+
+                    for criterion, detail in (
+                        winner_explanation["sensitivity"].items()
+                    ):
+                        change = detail["rank_change"]
+
+                        if change > 0:
+                            movement = f"Improved by {change} place(s)"
+                        elif change < 0:
+                            movement = f"Fell by {abs(change)} place(s)"
+                        else:
+                            movement = "No rank change"
+
+                        sensitivity_rows.append({
+                            "Criterion": criterion.replace(
+                                "_", " "
+                            ).title(),
+                            "Original rank": detail["original_rank"],
+                            "New rank": detail["new_rank"],
+                            "New score": detail["new_score"],
+                            "Result": movement,
+                        })
+
+                    st.dataframe(
+                        pd.DataFrame(sensitivity_rows),
+                        use_container_width=True,
+                        hide_index=True,
+                    )
+
+                    st.caption(
+                        "This test increases one criterion's weight by 20% "
+                        "at a time and recalculates TOPSIS. It does not "
+                        "change the saved ranking."
+                    )
+
+            except (ValueError, TypeError, KeyError, StopIteration) as error:
+                st.warning(
+                    f"The explanation could not be generated: {error}"
                 )
 
-                st.caption(
-                    "AHP weight (%) indicates criterion importance. The "
-                    "distance-share columns show each criterion's share "
-                    "of the database's squared distance from the respective "
-                    "reference point; they are not direct contributions "
-                    "to the final TOPSIS score."
-                )
-
-                st.markdown("#### 3. Weight sensitivity (+20%)")
-
-                sensitivity_rows = []
-
-                for criterion, item in details["sensitivity"].items():
-                    change = item["rank_change"]
-
-                    if change > 0:
-                        interpretation = f"Improved by {change} rank(s)"
-                    elif change < 0:
-                        interpretation = f"Fell by {abs(change)} rank(s)"
-                    else:
-                        interpretation = "Rank unchanged"
-
-                    sensitivity_rows.append({
-                        "Increased criterion": criterion.replace(
-                            "_", " "
-                        ).title(),
-                        "Original rank": item["original_rank"],
-                        "New rank": item["new_rank"],
-                        "Rank change": change,
-                        "Interpretation": interpretation,
-                        "New TOPSIS score": item["new_score"],
-                    })
-
-                st.dataframe(
-                    pd.DataFrame(sensitivity_rows),
-                    use_container_width=True,
-                    hide_index=True,
-                )
-
-                st.caption(
-                    "Sensitivity test: one criterion's weight is increased "
-                    "by 20% at a time, then all weights are normalized and "
-                    "TOPSIS is recalculated. This is a what-if test, not a "
-                    "prediction of real-world database performance."
-                )
-
-            except (ValueError, TypeError, KeyError) as error:
-                st.error(
-                    f"Could not generate the TOPSIS explanation: {error}"
-                )
-
-    
-        # --------------------------------------------------
-        # Ranking reliability testing
-        # --------------------------------------------------
-
-        st.subheader("Ranking Reliability Testing")
-
-        st.caption(
-            "Tests how sensitive the current ranking is to uncertain "
-            "database scores. Each score is changed individually to "
-            "1, 3 and 5, and TOPSIS is recalculated."
-        )
-
-        if len(eligible) < 2:
-            st.info(
-                "At least two eligible databases are required for "
-                "comparative reliability testing."
+        # Reliability testing stays hidden unless the user opens it.
+        with st.expander("Advanced: test ranking reliability"):
+            st.write(
+                "Check whether the recommendation changes when a database "
+                "score is tested at different values."
             )
 
-        elif (
-            not ahp_result
-            or ahp_result["application_id"] != application["id"]
-            or ahp_result["criteria"] != criteria
-        ):
-            st.warning(
-                "Calculate AHP weights for the current criteria first."
+            st.caption(
+                "The test uses low (1), middle (3), and high (5) scores. "
+                "These are hypothetical scenarios, not predictions."
             )
 
-        else:
-            try:
-                reliability_matrix = [
-                    [
-                        database["scores"][criterion]
-                        for criterion in criteria
-                    ]
-                    for database in eligible
-                ]
+            run_reliability = st.button(
+                "Run reliability test",
+                key="run_ranking_reliability",
+            )
 
-                reliability = evaluate_ranking_reliability(
-                    decision_matrix=reliability_matrix,
-                    weights=ahp_result["weights"],
-                    criteria_types=[
-                        criterion_types[criterion]
-                        for criterion in criteria
-                    ],
-                    alternatives=[
-                        database["name"] for database in eligible
-                    ],
-                    criteria_names=criteria,
-                )
+            if run_reliability:
+                if not valid_ahp:
+                    st.warning(
+                        "Calculate AHP weights for the current application "
+                        "and criteria first."
+                    )
+                else:
+                    try:
+                        reliability = evaluate_ranking_reliability(
+                            decision_matrix=decision_matrix,
+                            weights=ahp_result["weights"],
+                            criteria_types=[
+                                criterion_types[criterion]
+                                for criterion in criteria
+                            ],
+                            alternatives=database_names,
+                            criteria_names=criteria,
+                        )
 
-                st.markdown("#### Reliability summary")
+                        st.markdown("**Test results**")
 
-                col1, col2, col3 = st.columns(3)
+                        col1, col2, col3 = st.columns(3)
 
-                col1.metric(
-                    "Ranking-order stability",
-                    f"{reliability['ranking_order_stability_percent']:.2f}%",
-                )
+                        col1.metric(
+                            "Ranking stayed the same",
+                            f"{reliability['ranking_order_stability_percent']:.1f}%",
+                        )
 
-                col2.metric(
-                    "Original winner retained",
-                    f"{reliability['top_recommendation_retention_percent']:.2f}%",
-                )
+                        col2.metric(
+                            "Top choice stayed the same",
+                            f"{reliability['top_recommendation_retention_percent']:.1f}%",
+                        )
 
-                col3.metric(
-                    "Average rank movement",
-                    f"{reliability['average_absolute_rank_movement']:.3f}",
-                )
+                        col3.metric(
+                            "Average rank movement",
+                            f"{reliability['average_absolute_rank_movement']:.2f}",
+                        )
 
-                st.write(
-                    "**Original ranking:** "
-                    + " → ".join(reliability["baseline_order"])
-                )
+                        st.write(
+                            "**Original ranking:** "
+                            + " → ".join(reliability["baseline_order"])
+                        )
 
-                st.write(
-                    "**Original recommendation:** "
-                    + reliability["original_winner"]
-                )
+                        with st.expander("View test scenarios"):
+                            scenario_df = pd.DataFrame(
+                                reliability["scenarios"]
+                            )
 
-                st.markdown("#### Scenario-by-scenario results")
+                            scenario_df = scenario_df.rename(columns={
+                                "database_tested": "Database tested",
+                                "criterion_tested": "Criterion tested",
+                                "scenario": "Test",
+                                "original_score": "Original score",
+                                "scenario_score": "Test score",
+                                "new_winner": "New top choice",
+                                "winner_retained": "Top choice unchanged",
+                                "ranking_order_unchanged": "Full ranking unchanged",
+                                "new_ranking": "New ranking",
+                            })
 
-                scenario_df = pd.DataFrame(reliability["scenarios"])
+                            scenario_df = scenario_df.drop(
+                                columns=[
+                                    "original_winner",
+                                    "rank_changes",
+                                ],
+                                errors="ignore",
+                            )
 
-                scenario_df = scenario_df.rename(columns={
-                    "database_tested": "Database tested",
-                    "criterion_tested": "Criterion tested",
-                    "scenario": "Scenario",
-                    "original_score": "Original score",
-                    "scenario_score": "Test score",
-                    "new_winner": "New winner",
-                    "winner_retained": "Original winner retained",
-                    "ranking_order_unchanged": "Full ranking unchanged",
-                    "new_ranking": "New ranking",
-                })
+                            st.dataframe(
+                                scenario_df,
+                                use_container_width=True,
+                                hide_index=True,
+                            )
 
-                scenario_df = scenario_df.drop(
-                    columns=["original_winner", "rank_changes"],
-                    errors="ignore",
-                )
+                        st.caption(reliability["interpretation"])
 
-                st.dataframe(
-                    scenario_df,
-                    use_container_width=True,
-                    hide_index=True,
-                )
-
-                st.info(reliability["interpretation"])
-
-            except (ValueError, TypeError, KeyError) as error:
-                st.error(
-                    f"Could not complete ranking reliability testing: {error}"
-                )
-
-
-
+                    except (ValueError, TypeError, KeyError) as error:
+                        st.error(
+                            f"Reliability testing failed: {error}"
+                        )
 
 # --------------------------------------------------
-# 5. Saved configuration history
+# 6. Saved configuration history
 # --------------------------------------------------
 
 st.header("Saved configuration history")
