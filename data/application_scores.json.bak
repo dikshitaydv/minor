@@ -8,170 +8,650 @@
   "applications": {
     "general_web_app": {
       "postgresql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "query_flexibility": {"score": 5, "evidence_url": null, "verified_on": null},
-        "transaction_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/about/licence/",
+          "verified_on": "29/10/26"
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "query_flexibility": {
+          "score": 5,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "transaction_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mysql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "query_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "transaction_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": 5,
+          "evidence_url": "https://www.mysql.com/products/community/",
+          "verified_on": "29/10/26"
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "query_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "transaction_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mongodb": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "query_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "transaction_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "query_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "transaction_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "cassandra": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 5, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "query_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "transaction_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "query_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "transaction_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "redis": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "query_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "transaction_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "query_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "transaction_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       }
     },
     "document_app": {
       "postgresql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "document_model_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "schema_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "indexing_aggregation_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "document_model_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "schema_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "indexing_aggregation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mysql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "document_model_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "schema_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "indexing_aggregation_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "document_model_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "schema_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "indexing_aggregation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mongodb": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "document_model_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "schema_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "indexing_aggregation_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "document_model_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "schema_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "indexing_aggregation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "cassandra": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 5, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "document_model_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "schema_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "indexing_aggregation_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "document_model_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "schema_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "indexing_aggregation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "redis": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "document_model_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "schema_flexibility": {"score": null, "evidence_url": null, "verified_on": null},
-        "indexing_aggregation_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "document_model_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "schema_flexibility": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "indexing_aggregation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       }
     },
     "real_time_cache": {
       "postgresql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "read_write_operation_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "persistence": {"score": null, "evidence_url": null, "verified_on": null},
-        "eviction_policy_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "read_write_operation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "persistence": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "eviction_policy_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mysql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "read_write_operation_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "persistence": {"score": null, "evidence_url": null, "verified_on": null},
-        "eviction_policy_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "read_write_operation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "persistence": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "eviction_policy_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mongodb": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "read_write_operation_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "persistence": {"score": null, "evidence_url": null, "verified_on": null},
-        "eviction_policy_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "read_write_operation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "persistence": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "eviction_policy_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "cassandra": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 5, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "read_write_operation_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "persistence": {"score": null, "evidence_url": null, "verified_on": null},
-        "eviction_policy_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "read_write_operation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "persistence": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "eviction_policy_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "redis": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "read_write_operation_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "persistence": {"score": null, "evidence_url": null, "verified_on": null},
-        "eviction_policy_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "read_write_operation_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "persistence": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "eviction_policy_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       }
     },
     "distributed_wide_column": {
       "postgresql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "consistency_options": {"score": null, "evidence_url": null, "verified_on": null},
-        "replication_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "consistency_options": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "replication_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mysql": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "consistency_options": {"score": null, "evidence_url": null, "verified_on": null},
-        "replication_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "consistency_options": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "replication_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "mongodb": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "consistency_options": {"score": null, "evidence_url": null, "verified_on": null},
-        "replication_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "consistency_options": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "replication_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "cassandra": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 5, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "consistency_options": {"score": null, "evidence_url": null, "verified_on": null},
-        "replication_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "consistency_options": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "replication_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       },
       "redis": {
-        "free_self_hosted_availability": {"score": null, "evidence_url": null, "verified_on": null},
-        "scalability": {"score": 4, "evidence_url": null, "verified_on": null},
-        "high_availability_support": {"score": null, "evidence_url": null, "verified_on": null},
-        "security_features": {"score": null, "evidence_url": null, "verified_on": null},
-        "consistency_options": {"score": null, "evidence_url": null, "verified_on": null},
-        "replication_support": {"score": null, "evidence_url": null, "verified_on": null}
+        "free_self_hosted_availability": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "scalability": {
+          "score": 4,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "high_availability_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "security_features": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "consistency_options": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        },
+        "replication_support": {
+          "score": null,
+          "evidence_url": null,
+          "verified_on": null
+        }
       }
     }
   }

@@ -14,6 +14,8 @@ from core.ahp import get_ahp_details
 from core.recommendation import recommend_databases
 from storage.database import get_configuration_history, get_configuration
 
+from core.topsis_explainability import explain_topsis
+
 ROOT = Path(__file__).resolve().parent
 
 with open(ROOT / "data" / "applications.json", encoding="utf-8") as file:
@@ -463,6 +465,202 @@ if result:
         if "score" in ranking_df.columns:
             chart_data = ranking_df.set_index("database")[["score"]]
             st.bar_chart(chart_data)
+
+    
+        # --------------------------------------------------
+        # 4A. TOPSIS explainability
+        # --------------------------------------------------
+
+        st.subheader("Why did each database receive this rank?")
+
+        st.caption(
+            "This section explains the current TOPSIS ranking using "
+            "criterion performance, AHP weights, ideal-reference "
+            "distances, and weight sensitivity."
+        )
+
+        if len(eligible) < 2:
+            st.info(
+                "Explainability requires at least two eligible databases "
+                "for a meaningful comparison."
+            )
+
+        elif len(criteria) < 2:
+            st.info(
+                "Select at least two criteria to generate the explanation."
+            )
+
+        elif (
+            not ahp_result
+            or ahp_result["application_id"] != application["id"]
+            or ahp_result["criteria"] != criteria
+        ):
+            st.warning(
+                "Recalculate AHP weights for the current criteria before "
+                "viewing explainability."
+            )
+
+        else:
+            try:
+                # Rebuild the decision matrix in the same order as eligible.
+                explanation_matrix = [
+                    [
+                        database["scores"][criterion]
+                        for criterion in criteria
+                    ]
+                    for database in eligible
+                ]
+
+                explanation_results = explain_topsis(
+                    decision_matrix=explanation_matrix,
+                    weights=ahp_result["weights"],
+                    criteria_types=[
+                        criterion_types[criterion]
+                        for criterion in criteria
+                    ],
+                    criteria_names=criteria,
+                    alternatives=[
+                        database["name"] for database in eligible
+                    ],
+                    sensitivity_percent=20,
+                )
+
+                explanation_names = [
+                    item["database"] for item in explanation_results
+                ]
+
+                selected_explanation_name = st.selectbox(
+                    "Choose a database to explain",
+                    explanation_names,
+                    key="topsis_explanation_database",
+                )
+
+                details = next(
+                    item for item in explanation_results
+                    if item["database"] == selected_explanation_name
+                )
+
+                st.markdown(
+                    f"### {details['database']} — Rank {details['rank']}"
+                )
+
+                metric1, metric2, metric3 = st.columns(3)
+
+                metric1.metric(
+                    "TOPSIS score",
+                    f"{details['topsis_score']:.4f}",
+                )
+                metric2.metric(
+                    "Distance from ideal",
+                    f"{details['distance_from_ideal']:.4f}",
+                )
+                metric3.metric(
+                    "Distance from worst",
+                    f"{details['distance_from_worst']:.4f}",
+                )
+
+                st.markdown("#### 1. Strengths and weaknesses")
+
+                strong_labels = [
+                    criterion.replace("_", " ").title()
+                    for criterion in details["strong_criteria"]
+                ]
+                weak_labels = [
+                    criterion.replace("_", " ").title()
+                    for criterion in details["weak_criteria"]
+                ]
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    st.write("**Strong relative performance**")
+                    st.write(", ".join(strong_labels) or "None identified")
+
+                with col2:
+                    st.write("**Weak relative performance**")
+                    st.write(", ".join(weak_labels) or "None identified")
+
+                st.caption(
+                    "Strengths and weaknesses are relative to the other "
+                    "eligible databases, not absolute quality ratings."
+                )
+
+                st.markdown("#### 2. Criterion-level explanation")
+
+                criterion_rows = []
+
+                for criterion, item in details["criteria"].items():
+                    criterion_rows.append({
+                        "Criterion": criterion.replace("_", " ").title(),
+                        "Database score (1–5)": item["raw_score"],
+                        "AHP weight (%)": item["weight_percent"],
+                        "Weighted normalized value": item["weighted_value"],
+                        "Relative performance": item["performance_description"],
+                        "Distance from ideal share (%)":
+                            item["distance_from_ideal_share_percent"],
+                        "Distance from worst share (%)":
+                            item["distance_from_worst_share_percent"],
+                    })
+
+                criterion_df = pd.DataFrame(criterion_rows)
+
+                st.dataframe(
+                    criterion_df,
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+                st.caption(
+                    "AHP weight (%) indicates criterion importance. The "
+                    "distance-share columns show each criterion's share "
+                    "of the database's squared distance from the respective "
+                    "reference point; they are not direct contributions "
+                    "to the final TOPSIS score."
+                )
+
+                st.markdown("#### 3. Weight sensitivity (+20%)")
+
+                sensitivity_rows = []
+
+                for criterion, item in details["sensitivity"].items():
+                    change = item["rank_change"]
+
+                    if change > 0:
+                        interpretation = f"Improved by {change} rank(s)"
+                    elif change < 0:
+                        interpretation = f"Fell by {abs(change)} rank(s)"
+                    else:
+                        interpretation = "Rank unchanged"
+
+                    sensitivity_rows.append({
+                        "Increased criterion": criterion.replace(
+                            "_", " "
+                        ).title(),
+                        "Original rank": item["original_rank"],
+                        "New rank": item["new_rank"],
+                        "Rank change": change,
+                        "Interpretation": interpretation,
+                        "New TOPSIS score": item["new_score"],
+                    })
+
+                st.dataframe(
+                    pd.DataFrame(sensitivity_rows),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+                st.caption(
+                    "Sensitivity test: one criterion's weight is increased "
+                    "by 20% at a time, then all weights are normalized and "
+                    "TOPSIS is recalculated. This is a what-if test, not a "
+                    "prediction of real-world database performance."
+                )
+
+            except (ValueError, TypeError, KeyError) as error:
+                st.error(
+                    f"Could not generate the TOPSIS explanation: {error}"
+                )
+
 
 
 # --------------------------------------------------

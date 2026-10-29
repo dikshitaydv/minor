@@ -14,29 +14,29 @@
           "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.postgresql.org/docs/current/high-availability.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/docs/current/client-authentication.html",
+          "verified_on": "29/10/26"
         },
         "query_flexibility": {
           "score": 5,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://www.postgresql.org/docs/current/queries.html",
+          "verified_on": "29/10/26"
         },
         "transaction_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/docs/current/tutorial-transactions.html",
+          "verified_on": "29/10/26"
         }
       },
       "mysql": {
@@ -46,611 +46,611 @@
           "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/partitioning.html",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/replication.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/security.html",
+          "verified_on": "29/10/26"
         },
         "query_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/sql-statements.html",
+          "verified_on": "29/10/26"
         },
         "transaction_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/innodb-transaction-model.html",
+          "verified_on": "29/10/26"
         }
       },
       "mongodb": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.mongodb.com/legal/licensing/community-edition",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://www.mongodb.com/docs/manual/sharding/",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/replication/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/security/",
+          "verified_on": "29/10/26"
         },
         "query_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/crud/",
+          "verified_on": "29/10/26"
         },
         "transaction_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/core/transactions/",
+          "verified_on": "29/10/26"
         }
       },
       "cassandra": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 5,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/managing/operating/security.html",
+          "verified_on": "29/10/26"
         },
         "query_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 2,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/developing/cql/",
+          "verified_on": "29/10/26"
         },
         "transaction_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         }
       },
       "redis": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://redis.io/legal/licenses/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/security/",
+          "verified_on": "29/10/26"
         },
         "query_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 2,
+          "evidence_url": "https://redis.io/docs/latest/develop/data-types/",
+          "verified_on": "29/10/26"
         },
         "transaction_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://redis.io/docs/latest/develop/using-commands/transactions/",
+          "verified_on": "29/10/26"
         }
       }
     },
     "document_app": {
       "postgresql": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/about/licence/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/docs/current/client-authentication.html",
+          "verified_on": "29/10/26"
         },
         "document_model_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/datatype-json.html",
+          "verified_on": "29/10/26"
         },
         "schema_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/datatype-json.html",
+          "verified_on": "29/10/26"
         },
         "indexing_aggregation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.postgresql.org/docs/current/indexes.html",
+          "verified_on": "29/10/26"
         }
       },
       "mysql": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mysql.com/products/community/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/partitioning.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/security.html",
+          "verified_on": "29/10/26"
         },
         "document_model_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/json.html",
+          "verified_on": "29/10/26"
         },
         "schema_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/json.html",
+          "verified_on": "29/10/26"
         },
         "indexing_aggregation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/optimization-indexes.html",
+          "verified_on": "29/10/26"
         }
       },
       "mongodb": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.mongodb.com/legal/licensing/community-edition",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://www.mongodb.com/docs/manual/sharding/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/security/",
+          "verified_on": "29/10/26"
         },
         "document_model_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mongodb.com/docs/manual/core/document/",
+          "verified_on": "29/10/26"
         },
         "schema_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mongodb.com/docs/manual/data-modeling/",
+          "verified_on": "29/10/26"
         },
         "indexing_aggregation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mongodb.com/docs/manual/indexes/",
+          "verified_on": "29/10/26"
         }
       },
       "cassandra": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 5,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/managing/operating/security.html",
+          "verified_on": "29/10/26"
         },
         "document_model_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 2,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/developing/cql/ddl.html",
+          "verified_on": "29/10/26"
         },
         "schema_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/developing/cql/ddl.html",
+          "verified_on": "29/10/26"
         },
         "indexing_aggregation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/developing/cql/indexing/indexing-concepts.html",
+          "verified_on": "29/10/26"
         }
       },
       "redis": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://redis.io/legal/licenses/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/security/",
+          "verified_on": "29/10/26"
         },
         "document_model_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 2,
+          "evidence_url": "https://redis.io/docs/latest/develop/data-types/",
+          "verified_on": "29/10/26"
         },
         "schema_flexibility": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/develop/data-types/",
+          "verified_on": "29/10/26"
         },
         "indexing_aggregation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 2,
+          "evidence_url": "https://redis.io/docs/latest/develop/data-types/",
+          "verified_on": "29/10/26"
         }
       }
     },
     "real_time_cache": {
       "postgresql": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/about/licence/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/docs/current/client-authentication.html",
+          "verified_on": "29/10/26"
         },
         "read_write_operation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/tutorial-sql.html",
+          "verified_on": "29/10/26"
         },
         "persistence": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/docs/current/wal-intro.html",
+          "verified_on": "29/10/26"
         },
         "eviction_policy_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 1,
+          "evidence_url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "verified_on": "29/10/26"
         }
       },
       "mysql": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mysql.com/products/community/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/partitioning.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/security.html",
+          "verified_on": "29/10/26"
         },
         "read_write_operation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/sql-statements.html",
+          "verified_on": "29/10/26"
         },
         "persistence": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/innodb-redo-log.html",
+          "verified_on": "29/10/26"
         },
         "eviction_policy_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 1,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html",
+          "verified_on": "29/10/26"
         }
       },
       "mongodb": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.mongodb.com/legal/licensing/community-edition",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://www.mongodb.com/docs/manual/sharding/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/security/",
+          "verified_on": "29/10/26"
         },
         "read_write_operation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/crud/",
+          "verified_on": "29/10/26"
         },
         "persistence": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mongodb.com/docs/manual/core/transactions/",
+          "verified_on": "29/10/26"
         },
         "eviction_policy_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 1,
+          "evidence_url": "https://www.mongodb.com/docs/manual/reference/command/planCacheClear/",
+          "verified_on": "29/10/26"
         }
       },
       "cassandra": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 5,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/managing/operating/security.html",
+          "verified_on": "29/10/26"
         },
         "read_write_operation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/developing/cql/",
+          "verified_on": "29/10/26"
         },
         "persistence": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "eviction_policy_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 1,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         }
       },
       "redis": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://redis.io/legal/licenses/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/security/",
+          "verified_on": "29/10/26"
         },
         "read_write_operation_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://redis.io/docs/latest/develop/",
+          "verified_on": "29/10/26"
         },
         "persistence": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/",
+          "verified_on": "29/10/26"
         },
         "eviction_policy_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/",
+          "verified_on": "29/10/26"
         }
       }
     },
     "distributed_wide_column": {
       "postgresql": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/about/licence/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.postgresql.org/docs/current/high-availability.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.postgresql.org/docs/current/client-authentication.html",
+          "verified_on": "29/10/26"
         },
         "consistency_options": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+          "verified_on": "29/10/26"
         },
         "replication_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.postgresql.org/docs/current/high-availability.html",
+          "verified_on": "29/10/26"
         }
       },
       "mysql": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mysql.com/products/community/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
-          "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/partitioning.html",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/replication.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/security.html",
+          "verified_on": "29/10/26"
         },
         "consistency_options": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/innodb-transaction-isolation-levels.html",
+          "verified_on": "29/10/26"
         },
         "replication_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://dev.mysql.com/doc/refman/8.4/en/replication.html",
+          "verified_on": "29/10/26"
         }
       },
       "mongodb": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://www.mongodb.com/legal/licensing/community-edition",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://www.mongodb.com/docs/manual/sharding/",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/replication/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/security/",
+          "verified_on": "29/10/26"
         },
         "consistency_options": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://www.mongodb.com/docs/manual/reference/read-concern/",
+          "verified_on": "29/10/26"
         },
         "replication_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://www.mongodb.com/docs/manual/replication/",
+          "verified_on": "29/10/26"
         }
       },
       "cassandra": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 5,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/managing/operating/security.html",
+          "verified_on": "29/10/26"
         },
         "consistency_options": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         },
         "replication_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 5,
+          "evidence_url": "https://cassandra.apache.org/doc/stable/cassandra/architecture/guarantees.html",
+          "verified_on": "29/10/26"
         }
       },
       "redis": {
         "free_self_hosted_availability": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 3,
+          "evidence_url": "https://redis.io/legal/licenses/",
+          "verified_on": "29/10/26"
         },
         "scalability": {
           "score": 4,
-          "evidence_url": null,
-          "verified_on": null
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/",
+          "verified_on": "29/10/26"
         },
         "high_availability_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/",
+          "verified_on": "29/10/26"
         },
         "security_features": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/security/",
+          "verified_on": "29/10/26"
         },
         "consistency_options": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 2,
+          "evidence_url": "https://redis.io/docs/latest/develop/using-commands/transactions/",
+          "verified_on": "29/10/26"
         },
         "replication_support": {
-          "score": null,
-          "evidence_url": null,
-          "verified_on": null
+          "score": 4,
+          "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/",
+          "verified_on": "29/10/26"
         }
       }
     }
