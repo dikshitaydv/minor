@@ -234,17 +234,16 @@ st.caption(
     "Compare the importance of each pair of criteria. "
     "A value above 1 means the first criterion is more important."
 )
-
 scale_options = {
-    "1 - Equal": 1,
-    "2": 2,
-    "3 - Moderate": 3,
-    "4": 4,
-    "5 - Strong": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
+    "1 — Equal importance: Both criteria contribute equally.": 1,
+    "2 — Intermediate value: Between equal and moderate importance.": 2,
+    "3 — Moderate importance: One criterion is moderately more important.": 3,
+    "4 — Intermediate value: Between moderate and strong importance.": 4,
+    "5 — Strong importance: One criterion is strongly more important.": 5,
+    "6 — Intermediate value: Between strong and very strong importance.": 6,
+    "7 — Very strong importance: One criterion is very strongly favored.": 7,
+    "8 — Intermediate value: Between very strong and extreme importance.": 8,
+    "9 — Extreme importance: The highest degree of importance.": 9,
 }
 
 pairwise_matrix = np.ones((len(criteria), len(criteria)), dtype=float)
