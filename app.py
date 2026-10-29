@@ -15,8 +15,38 @@ from core.recommendation import recommend_databases
 from storage.database import get_configuration_history, get_configuration
 
 from core.topsis_explainability import explain_topsis
+def find_inconsistent_triads(criteria, matrix, top_n=5):
+    """Find groups of three criteria with conflicting judgments."""
+    matrix = np.asarray(matrix, dtype=float)
+    triads = []
 
+    for i in range(len(criteria)):
+        for j in range(i + 1, len(criteria)):
+            for k in range(j + 1, len(criteria)):
+
+                # Compare the direct judgment with the implied judgment.
+                direct = matrix[i, k]
+                implied = matrix[i, j] * matrix[j, k]
+
+                discrepancy = abs(np.log(direct / implied))
+
+                triads.append({
+                    "Criteria A": criteria[i],
+                    "Criteria B": criteria[j],
+                    "Criteria C": criteria[k],
+                    "A vs B": matrix[i, j],
+                    "B vs C": matrix[j, k],
+                    "A vs C": matrix[i, k],
+                    "Discrepancy": discrepancy,
+                })
+
+    return sorted(
+        triads,
+        key=lambda item: item["Discrepancy"],
+        reverse=True,
+    )[:top_n]
 ROOT = Path(__file__).resolve().parent
+
 
 with open(ROOT / "data" / "applications.json", encoding="utf-8") as file:
     applications = json.load(file)
@@ -306,12 +336,81 @@ if (
 
     if ahp_result["consistent"]:
         st.success("Comparisons are consistent (CR ≤ 0.10).")
+
     else:
         st.warning(
-            "Comparisons are inconsistent. Adjust them until CR ≤ 0.10 "
-            "before generating recommendations."
+            "Comparisons are inconsistent. Review the judgments below "
+            "and adjust them until CR ≤ 0.10."
         )
 
+        st.subheader("Comparisons to Review")
+
+        st.write(
+            "Your answers conflict with each other. Start by reviewing "
+            "these three comparisons from the most conflicting group."
+        )
+
+        triads = find_inconsistent_triads(
+            ahp_result["criteria"],
+            ahp_result["matrix"],
+        )
+
+        if triads:
+            triad = triads[0]
+
+            scale_meanings = {
+                1: "Equal importance",
+                2: "Intermediate importance",
+                3: "Moderate importance",
+                4: "Between moderate and strong",
+                5: "Strong importance",
+                6: "Between strong and very strong",
+                7: "Very strong importance",
+                8: "Between very strong and extreme",
+                9: "Extreme importance",
+            }
+
+            comparisons_to_review = [
+                (
+                    triad["Criteria A"],
+                    triad["Criteria B"],
+                    triad["A vs B"],
+                ),
+                (
+                    triad["Criteria B"],
+                    triad["Criteria C"],
+                    triad["B vs C"],
+                ),
+                (
+                    triad["Criteria A"],
+                    triad["Criteria C"],
+                    triad["A vs C"],
+                ),
+            ]
+
+            for criterion_a, criterion_b, value in comparisons_to_review:
+                value = int(round(value))
+                name_a = criterion_a.replace("_", " ").title()
+                name_b = criterion_b.replace("_", " ").title()
+
+                st.markdown(f"**{name_a} vs {name_b}**")
+
+                st.write(
+                    f"Your current choice: **{value} — "
+                    f"{scale_meanings.get(value, 'Selected importance')}**"
+                )
+
+            st.info(
+                "Return to these comparisons above and reconsider your "
+                "choices. Change a value only if it reflects your actual "
+                "preference, then click Calculate AHP weights again."
+            )
+
+        else:
+            st.info(
+                "No comparison group could be identified. Review your "
+                "pairwise judgments and calculate the weights again."
+            )
 # --------------------------------------------------
 # 4. TOPSIS ranking and SQLite persistence
 # --------------------------------------------------
