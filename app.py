@@ -1,4 +1,4 @@
-
+from core.ranking_reliability import evaluate_ranking_reliability
 import json
 from pathlib import Path
 from core.application_scoring import apply_application_scores
@@ -660,6 +660,121 @@ if result:
                 st.error(
                     f"Could not generate the TOPSIS explanation: {error}"
                 )
+
+    
+        # --------------------------------------------------
+        # Ranking reliability testing
+        # --------------------------------------------------
+
+        st.subheader("Ranking Reliability Testing")
+
+        st.caption(
+            "Tests how sensitive the current ranking is to uncertain "
+            "database scores. Each score is changed individually to "
+            "1, 3 and 5, and TOPSIS is recalculated."
+        )
+
+        if len(eligible) < 2:
+            st.info(
+                "At least two eligible databases are required for "
+                "comparative reliability testing."
+            )
+
+        elif (
+            not ahp_result
+            or ahp_result["application_id"] != application["id"]
+            or ahp_result["criteria"] != criteria
+        ):
+            st.warning(
+                "Calculate AHP weights for the current criteria first."
+            )
+
+        else:
+            try:
+                reliability_matrix = [
+                    [
+                        database["scores"][criterion]
+                        for criterion in criteria
+                    ]
+                    for database in eligible
+                ]
+
+                reliability = evaluate_ranking_reliability(
+                    decision_matrix=reliability_matrix,
+                    weights=ahp_result["weights"],
+                    criteria_types=[
+                        criterion_types[criterion]
+                        for criterion in criteria
+                    ],
+                    alternatives=[
+                        database["name"] for database in eligible
+                    ],
+                    criteria_names=criteria,
+                )
+
+                st.markdown("#### Reliability summary")
+
+                col1, col2, col3 = st.columns(3)
+
+                col1.metric(
+                    "Ranking-order stability",
+                    f"{reliability['ranking_order_stability_percent']:.2f}%",
+                )
+
+                col2.metric(
+                    "Original winner retained",
+                    f"{reliability['top_recommendation_retention_percent']:.2f}%",
+                )
+
+                col3.metric(
+                    "Average rank movement",
+                    f"{reliability['average_absolute_rank_movement']:.3f}",
+                )
+
+                st.write(
+                    "**Original ranking:** "
+                    + " → ".join(reliability["baseline_order"])
+                )
+
+                st.write(
+                    "**Original recommendation:** "
+                    + reliability["original_winner"]
+                )
+
+                st.markdown("#### Scenario-by-scenario results")
+
+                scenario_df = pd.DataFrame(reliability["scenarios"])
+
+                scenario_df = scenario_df.rename(columns={
+                    "database_tested": "Database tested",
+                    "criterion_tested": "Criterion tested",
+                    "scenario": "Scenario",
+                    "original_score": "Original score",
+                    "scenario_score": "Test score",
+                    "new_winner": "New winner",
+                    "winner_retained": "Original winner retained",
+                    "ranking_order_unchanged": "Full ranking unchanged",
+                    "new_ranking": "New ranking",
+                })
+
+                scenario_df = scenario_df.drop(
+                    columns=["original_winner", "rank_changes"],
+                    errors="ignore",
+                )
+
+                st.dataframe(
+                    scenario_df,
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+                st.info(reliability["interpretation"])
+
+            except (ValueError, TypeError, KeyError) as error:
+                st.error(
+                    f"Could not complete ranking reliability testing: {error}"
+                )
+
 
 
 
