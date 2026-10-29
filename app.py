@@ -544,6 +544,14 @@ if result:
         hide_index=True,
     )
 
+    st.subheader("TOPSIS score comparison")
+
+    ranking_df = pd.DataFrame(result["rankings"])
+
+    if "score" in ranking_df.columns:
+        chart_data = ranking_df.set_index("database")[["score"]]
+        st.bar_chart(chart_data)
+
     if len(result["rankings"]) == 1:
         st.info(
             f"Only {result['rankings'][0]['database']} meets the "
