@@ -109,6 +109,11 @@ def evaluate_ranking_reliability(
             original_value = matrix[row_index, col_index]
 
             for scenario_name, scenario_value in scenario_values:
+
+                # Skip scenarios where the score does not actually change.
+                if np.isclose(original_value, scenario_value):
+                    continue
+
                 changed_matrix = matrix.copy()
                 changed_matrix[row_index, col_index] = scenario_value
 
@@ -163,11 +168,22 @@ def evaluate_ranking_reliability(
 
     total_scenarios = len(scenario_rows)
 
+    # Stop if no actual score changes were tested.
+    if total_scenarios == 0:
+        raise ValueError(
+            "No scenarios changed the original scores. "
+            "Reliability testing could not be performed."
+        )
+
+
     return {
         "baseline_ranking": baseline,
         "baseline_order": baseline_order,
         "original_winner": original_winner,
         "scenario_count": total_scenarios,
+        "skipped_unchanged_scenarios": (
+            rows * cols * len(scenario_values) - total_scenarios
+        ),
         "ranking_order_stability_percent": round(
             exact_order_matches / total_scenarios * 100, 2
         ),

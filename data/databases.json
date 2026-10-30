@@ -4,7 +4,7 @@
     "name": "PostgreSQL",
     "type": "relational",
     "supports_sql": true,
-    "supports_documents": false,
+    "supports_documents": true,
     "supports_in_memory_cache": false,
     "supports_distributed_wide_column": false,
     "scores": {
@@ -46,7 +46,7 @@
     "name": "MySQL",
     "type": "relational",
     "supports_sql": true,
-    "supports_documents": false,
+    "supports_documents": true,
     "supports_in_memory_cache": false,
     "supports_distributed_wide_column": false,
     "scores": {

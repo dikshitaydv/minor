@@ -23,9 +23,10 @@ def example_data():
 def test_reliability_generates_expected_scenarios(example_data):
     result = evaluate_ranking_reliability(**example_data)
 
-    # 3 databases x 2 criteria x 3 score scenarios.
-    assert result["scenario_count"] == 18
-    assert len(result["scenarios"]) == 18
+    # 18 possible scenarios minus 4 unchanged scenarios.
+    assert result["scenario_count"] == 14
+    assert len(result["scenarios"]) == 14
+    assert result["skipped_unchanged_scenarios"] == 4
 
 
 def test_stability_metrics_are_in_valid_ranges(example_data):
