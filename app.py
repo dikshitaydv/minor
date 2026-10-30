@@ -266,6 +266,7 @@ st.caption(
     "Compare the importance of each pair of criteria. "
     "A value above 1 means the first criterion is more important."
 )
+
 scale_options = {
     "1 — Equal importance: Both criteria contribute equally.": 1,
     "2 — Intermediate value: Between equal and moderate importance.": 2,
@@ -278,25 +279,63 @@ scale_options = {
     "9 — Extreme importance: The highest degree of importance.": 9,
 }
 
-pairwise_matrix = np.ones((len(criteria), len(criteria)), dtype=float)
+importance_options = {
+    label: score
+    for label, score in scale_options.items()
+    if score > 1
+}
 
+pairwise_matrix = np.ones(
+    (len(criteria), len(criteria)), dtype=float
+)
 
 with st.form("integrated_ahp_form"):
+
     for i in range(len(criteria)):
         for j in range(i + 1, len(criteria)):
-            value_label = st.selectbox(
-                f"{criteria[i]} compared with {criteria[j]}",
-                list(scale_options.keys()),
-                index=0,
-                key=f"pair_{application['id']}_{criteria[i]}_{criteria[j]}",
+
+            criterion_a = criteria[i]
+            criterion_b = criteria[j]
+
+            st.markdown(
+                f"**Comparison: {criterion_a} vs {criterion_b}**"
             )
-            value = scale_options[value_label]
+
+            direction = st.radio(
+                "Which criterion is more important?",
+                options=[
+                    criterion_a,
+                    "Equally Important",
+                    criterion_b,
+                ],
+                horizontal=True,
+                key=f"direction_{application['id']}_{i}_{j}",
+            )
+
+            value_label = st.selectbox(
+                "Select degree of importance (Saaty's Scale)",
+                list(importance_options.keys()),
+                key=f"pair_{application['id']}_{i}_{j}",
+            )
+
+            importance = importance_options[value_label]
+
+            if direction == criterion_a:
+                value = importance
+            elif direction == criterion_b:
+                value = 1 / importance
+            else:
+                value = 1
+
             pairwise_matrix[i, j] = value
             pairwise_matrix[j, i] = 1 / value
 
-    calculate_weights = st.form_submit_button("Calculate AHP weights")
+    calculate_weights = st.form_submit_button(
+        "Calculate AHP weights"
+    )
 
 if calculate_weights:
+
     try:
         details = get_ahp_details(pairwise_matrix)
         st.session_state["integrated_ahp"] = {
