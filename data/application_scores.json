@@ -166,6 +166,70 @@
           "evidence_url": "https://redis.io/docs/latest/develop/using-commands/transactions/",
           "verified_on": "29/10/26"
         }
+      },
+      "couchbase": {
+        "free_self_hosted_availability": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/editions.html",
+          "verified_on": "22/11/26"
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/intro.html",
+          "verified_on": "22/11/26"
+        },
+        "high_availability_support": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/intro.html",
+          "verified_on": "22/11/26"
+        },
+        "security_features": {
+          "score": 3,
+          "evidence_url": "https://docs.couchbase.com/server/current/security/security-overview.html",
+          "verified_on": "22/11/26"
+        },
+        "query_flexibility": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/n1ql/n1ql-language-reference/index.html",
+          "verified_on": "22/11/26"
+        },
+        "transaction_support": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/learn/data/transactions.html",
+          "verified_on": "22/11/26"
+        }
+      },
+      "scylladb": {
+        "free_self_hosted_availability": {
+          "score": 3,
+          "evidence_url": "https://www.scylladb.com/source-available-faq/",
+          "verified_on": "22/11/26"
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/architecture/architecture.html",
+          "verified_on": "22/11/26"
+        },
+        "high_availability_support": {
+          "score": 5,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/architecture/architecture.html",
+          "verified_on": "22/11/26"
+        },
+        "security_features": {
+          "score": 4,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/operating/security/",
+          "verified_on": "22/11/26"
+        },
+        "query_flexibility": {
+          "score": 2,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/",
+          "verified_on": "22/11/26"
+        },
+        "transaction_support": {
+          "score": 3,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/",
+          "verified_on": "22/11/26"
+        }
       }
     },
     "document_app": {
