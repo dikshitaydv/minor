@@ -328,6 +328,38 @@
           "evidence_url": "https://redis.io/docs/latest/develop/data-types/",
           "verified_on": "29/10/26"
         }
+      },
+      "couchbase": {
+        "free_self_hosted_availability": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/editions.html",
+          "verified_on": "22/11/26"
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/learn/services-and-indexes/services.html",
+          "verified_on": "22/11/26"
+        },
+        "security_features": {
+          "score": 3,
+          "evidence_url": "https://docs.couchbase.com/server/current/security/security-overview.html",
+          "verified_on": "22/11/26"
+        },
+        "document_model_support": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/intro.html",
+          "verified_on": "22/11/26"
+        },
+        "schema_flexibility": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/learn/data/data-modeling.html",
+          "verified_on": "22/11/26"
+        },
+        "indexing_aggregation_support": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/n1ql/n1ql-language-reference/index.html",
+          "verified_on": "22/11/26"
+        }
       }
     },
     "real_time_cache": {
@@ -490,6 +522,38 @@
           "evidence_url": "https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/",
           "verified_on": "29/10/26"
         }
+      },
+      "couchbase": {
+        "free_self_hosted_availability": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/editions.html",
+          "verified_on": "22/11/26"
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/learn/services-and-indexes/services.html",
+          "verified_on": "22/11/26"
+        },
+        "security_features": {
+          "score": 3,
+          "evidence_url": "https://docs.couchbase.com/server/current/security/security-overview.html",
+          "verified_on": "22/11/26"
+        },
+        "read_write_operation_support": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/introduction/intro.html",
+          "verified_on": "22/11/26"
+        },
+        "persistence": {
+          "score": 5,
+          "evidence_url": "https://docs.couchbase.com/server/current/learn/data/durability.html",
+          "verified_on": "22/11/26"
+        },
+        "eviction_policy_support": {
+          "score": 4,
+          "evidence_url": "https://docs.couchbase.com/server/current/learn/buckets-memory-and-storage/memory.html",
+          "verified_on": "22/11/26"
+        }
       }
     },
     "distributed_wide_column": {
@@ -651,6 +715,38 @@
           "score": 4,
           "evidence_url": "https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/",
           "verified_on": "29/10/26"
+        }
+      },
+      "scylladb": {
+        "free_self_hosted_availability": {
+          "score": 3,
+          "evidence_url": "https://www.scylladb.com/source-available-faq/",
+          "verified_on": "22/11/26"
+        },
+        "scalability": {
+          "score": 5,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/architecture/architecture.html",
+          "verified_on": "22//11/26"
+        },
+        "high_availability_support": {
+          "score": 5,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/architecture/architecture.html",
+          "verified_on": "22/11/26"
+        },
+        "security_features": {
+          "score": 4,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/operating/security/",
+          "verified_on": "22/11/26"
+        },
+        "consistency_options": {
+          "score": 5,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/cql/consistency.html",
+          "verified_on": "22/11/26"
+        },
+        "replication_support": {
+          "score": 5,
+          "evidence_url": "https://docs.scylladb.com/manual/stable/architecture/replication.html",
+          "verified_on": "22/11/26"
         }
       }
     }
