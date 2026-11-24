@@ -11,6 +11,7 @@ from core.application_scoring import apply_application_scores
 from core.filtering import filter_databases
 from core.ahp import get_ahp_details
 from core.recommendation import recommend_databases
+from storage.database import get_configuration_history, get_configuration
 from core.topsis_explainability import explain_topsis
 from core.ranking_reliability import evaluate_ranking_reliability
 
@@ -224,6 +225,7 @@ def render_user_page():
                                 "criteria": criteria,
                                 "criteria_types": ["benefit"] * len(criteria),
                                 "eligible_databases": [db["name"] for db in eligible],
+                                "pairwise_matrix": ahp["matrix"],
                             },
                         )
                         st.session_state["user_result"] = result
@@ -265,6 +267,40 @@ def render_user_page():
             "The ranking is based on your selected application, criteria, "
             "pairwise comparisons, and the system's evaluated database scores."
         )
+
+        # Saved ranking versions: each completed run is stored in SQLite and can be revisited.
+        config_name = result.get("config_name", f"user_{application['id']}_configuration")
+        with st.expander("Saved ranking versions", expanded=False):
+            version_history = get_configuration_history(config_name)
+            if version_history:
+                history_df = pd.DataFrame(version_history)
+                st.dataframe(history_df, hide_index=True, use_container_width=True)
+                version_choices = [row["version"] for row in version_history]
+                selected_version = st.selectbox(
+                    "View a previous ranking version",
+                    version_choices,
+                    index=len(version_choices) - 1,
+                    key=f"user_saved_version_{application['id']}",
+                )
+                if st.button("Load saved version details", key=f"user_load_version_{application['id']}"):
+                    saved_version = get_configuration(config_name, version=selected_version)
+                    if saved_version:
+                        st.session_state[f"user_saved_details_{application['id']}"] = saved_version
+                saved_details = st.session_state.get(f"user_saved_details_{application['id']}")
+                if saved_details and saved_details.get("version") == selected_version:
+                    st.markdown(f"**Version {saved_details['version']} — {saved_details['created_at']}**")
+                    st.markdown("**Saved criteria weights**")
+                    st.json(saved_details["criteria_weights"])
+                    st.markdown("**Saved preferences and ranking snapshot**")
+                    st.json(saved_details["preferences"])
+                    saved_ranking = saved_details["preferences"].get("ranking_snapshot")
+                    if saved_ranking:
+                        st.markdown("**Ranking for this saved version**")
+                        st.dataframe(pd.DataFrame(saved_ranking), hide_index=True, use_container_width=True)
+                    else:
+                        st.info("This earlier version contains its weights and preferences but predates saved ranking snapshots.")
+            else:
+                st.info("No saved ranking versions yet. Complete a ranking to create the first version.")
 
         # Explainability: show why the top-ranked database performed well.
         valid_ahp = bool(

@@ -54,13 +54,29 @@ def recommend_databases(
     )
 
     # 4. Save the weights and preferences as a new configuration version.
-    version = save_configuration(
-        config_name=config_name,
-        criteria_weights={
+    saved_preferences = dict(preferences or {})
+    # Persist the full ranking output in the version record so users can
+    # inspect historical recommendations, not just weights and inputs.
+    saved_preferences["ranking_snapshot"] = [
+        {"rank": index + 1, **item}
+        for index, item in enumerate(rankings)
+    ]
+    criterion_names = saved_preferences.get("criteria")
+    if isinstance(criterion_names, list) and len(criterion_names) == len(weights):
+        saved_weights = {
+            str(name): float(weight)
+            for name, weight in zip(criterion_names, weights)
+        }
+    else:
+        saved_weights = {
             f"criterion_{i + 1}": float(weight)
             for i, weight in enumerate(weights)
-        },
-        preferences=preferences or {},
+        }
+
+    version = save_configuration(
+        config_name=config_name,
+        criteria_weights=saved_weights,
+        preferences=saved_preferences,
     )
 
     # 5. Return the results to the caller or UI.

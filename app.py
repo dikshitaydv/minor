@@ -143,19 +143,40 @@ h1, h2, h3 { color: #26344B !important; }
 hr { border-color: #BED3C4; }
 .login-panel { padding: 1.4rem; background: rgba(255,255,255,.8); border: 1px solid #BED3C4; border-radius: 16px; }
 
-/* Sidebar: retain the dark sidebar, but use high-contrast light text. */
-[data-testid="stSidebar"] ,
-[data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
-[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] *,
-[data-testid="stSidebar"] label,
+/* Sidebar: dark background with consistently readable light text */
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] *:not(input):not(textarea) {
+    color: #F7F8F4 !important;
+}
+[data-testid="stSidebar"] {
+    background-color: #26344B !important;
+}
+
+/* Sidebar headings and markdown content */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] span,
-[data-testid="stSidebar"] [data-testid="stWidgetLabel"] {
-  color: #F7F8F4 !important;
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] *,
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] * {
+    color: #F7F8F4 !important;
 }
+
+/* Sidebar input fields: dark surface + light text */
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] textarea,
+[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    background-color: #26344B !important;
+    color: #FFFFFF !important;
+    border-color: #BED3C4 !important;
+}
+
+/* Sidebar buttons */
 [data-testid="stSidebar"] button,
 [data-testid="stSidebar"] button * {
-  color: #FFFFFF !important;
+    color: #FFFFFF !important;
 }
 
 /* Make every button readable, including secondary and form buttons. */
@@ -326,7 +347,8 @@ else:
 
     if role == "Administrator":
         st.sidebar.info("Administrator access: database catalogue, application details and scores.")
-        import admin_app  # Existing full management view retained for administrators.
+        import admin_app
+        admin_app.render_admin_page()  # Existing full management view retained for administrators.
     elif role == "User":
         import user_app
         user_app.render_user_page()
