@@ -281,3 +281,28 @@ Developed as a college minor project focused on database selection using Multi-C
 
 **GitHub Repository:**  
 https://github.com/dikshitaydv/minor
+
+## Role-based UI (updated)
+
+The Streamlit interface now has separate temporary login roles:
+
+- **User:** `user` / `user123`
+  - Selects an application.
+  - Chooses evaluation criteria.
+  - Completes AHP pairwise comparisons.
+  - Views the TOPSIS ranking and score chart on a separate results step.
+  - Does not see the database catalogue, raw catalogue scores, or administrator review tables.
+- **Administrator:** `admin` / `admin123`
+  - Opens the previous full system view, including the database catalogue, criteria/scoring information, ranking details, reliability tests, and saved configuration history.
+
+These credentials are hardcoded for prototype/demo use only. Change `CREDENTIALS` in `app.py` before any real deployment. This is a UI-level demo login, not production authentication.
+
+### Run
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+The UI uses a palette sampled from the supplied reference image: muted rose, peach, sage green, teal, and slate.
